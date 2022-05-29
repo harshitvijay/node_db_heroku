@@ -4,8 +4,11 @@
 const db = require("../data/dbConfig");
 
 const add = async (lesson) => {
-  const [id] = await db("lessons").insert(lesson);
-  return id;
+  return await db("lessons").insert(lesson, ["id", "name"]);
+
+  //work for sqlite only
+  // const [id] = await db("lessons").insert(lesson);
+  // return id;
 };
 
 const find = async () => {
@@ -34,8 +37,9 @@ const findMessageById = async (id) => {
 };
 
 const addMessage = async (message, lesson_id) => {
-  const [id] = await db("messages").where({ lesson_id }).insert(message);
-  return await findMessageById(id);
+  return await db("messages").where({ lesson_id }).insert(message, ["id"]);
+  // const [id] = await db("messages").where({ lesson_id }).insert(message);
+  // return await findMessageById(id);
 };
 
 const findLessonMessages = async (lesson_id) => {
