@@ -59,6 +59,18 @@ const removeMessage = async (id) => {
   return await db("messages").where({ id }).del();
 };
 
+const addUser = async (user) => {
+  return await db("users").insert(user, ["id", "username"]);
+};
+
+const findAllUser = async () => {
+  return await db("users");
+};
+
+const findUserByUsername = async (username) => {
+  return await db("users").where({ username }).first();
+};
+
 module.exports = {
   add,
   find,
@@ -68,4 +80,7 @@ module.exports = {
   addMessage,
   findLessonMessages,
   removeMessage,
+  addUser,
+  findAllUser,
+  findUserByUsername,
 };
